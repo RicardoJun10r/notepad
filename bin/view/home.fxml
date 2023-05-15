@@ -51,15 +51,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="editar_icon" mnemonicParsing="false" onAction="#abrirModalEditar">
-                     <graphic>
-                        <ImageView fitHeight="46.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../Downloads/editing.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button fx:id="logout_icon" mnemonicParsing="false" onAction="#fechar">
                      <graphic>
                         <ImageView fitHeight="46.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
@@ -73,19 +64,19 @@
             </VBox>
          </children>
       </AnchorPane>
-      <Pane fx:id="TABELA_PANE" layoutX="65.0" layoutY="97.0" prefHeight="55.0" prefWidth="74.0">
+      <Pane fx:id="TABELA_PANE" layoutX="65.0" layoutY="97.0" prefHeight="503.0" prefWidth="540.0">
          <children>
-            <TableView fx:id="TABELA" prefHeight="441.0" prefWidth="540.0">
+            <TableView fx:id="TABELA" prefHeight="410.0" prefWidth="540.0">
               <columns>
-                <TableColumn fx:id="col_id" prefWidth="50.0" text="ID" />
-                <TableColumn fx:id="col_nome" prefWidth="78.0" text="Nome" />
-                  <TableColumn fx:id="col_descricao" prefWidth="83.0" text="Descricao" />
-                  <TableColumn fx:id="col_data" prefWidth="69.0" text="Data" />
-                  <TableColumn fx:id="col_prioridade" prefWidth="90.0" text="Prioridade" />
-                  <TableColumn fx:id="col_botao_abrir" prefWidth="75.0" text="Abrir" />
-                  <TableColumn fx:id="col_botao_deletar" prefWidth="94.0" text="Deletar" />
+                <TableColumn fx:id="col_id" prefWidth="62.0" text="id" />
+                <TableColumn fx:id="col_nome" prefWidth="128.0" text="nome" />
+                  <TableColumn fx:id="col_descricao" prefWidth="111.0" text="descricao" />
+                  <TableColumn fx:id="col_data" prefWidth="121.0" text="data" />
+                  <TableColumn fx:id="col_prioridade" prefWidth="117.0" text="prioridade" />
               </columns>
             </TableView>
+            <Button fx:id="botaoAbrirNotas" layoutX="197.0" layoutY="436.0" mnemonicParsing="false" onAction="#abrirNotas" text="Abrir" />
+            <Button fx:id="botaoDeletarNotas" layoutX="292.0" layoutY="436.0" mnemonicParsing="false" onAction="#deletarNotas" style="-fx-background-color: #FF0000;" text="Deletar" />
          </children>
       </Pane>
       <Pane fx:id="CRIAR_MODAL_PANE" layoutX="97.0" layoutY="65.0" prefHeight="43.0" prefWidth="85.0" visible="false">

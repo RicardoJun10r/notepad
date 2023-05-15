@@ -1,5 +1,7 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import model.Prioridade;
@@ -21,12 +23,15 @@ public class GerenciadorTarefas {
 
     private IterarListaEncadeada<Tarefa> iterarTarefas;
 
+    private List<Tarefa> lista;
+
     //#endregion
 
     //#region CONSTRUTORES
 
     public GerenciadorTarefas(){
         this.tarefas = new ListaDuplamenteEncadeada<>();
+        this.lista = new ArrayList<>();
     }
 
     //#endregion
@@ -34,12 +39,13 @@ public class GerenciadorTarefas {
     //#region MÉTODOS
     
     public String adicionarTarefa(Tarefa tarefa){
+        this.lista.add(tarefa);
         this.tarefas.adicionar(tarefa);
         return "Tarefa de id = [ " + tarefa.getID() + " ] adicionada";
     }
 
-    public InterList<Tarefa> listar(){
-        if(this.tarefas != null) return this.tarefas;
+    public List<Tarefa> listar(){
+        if(!this.lista.isEmpty()) return this.lista;
         else return null;
     }
 
@@ -79,7 +85,7 @@ public class GerenciadorTarefas {
     }
 
     public Integer totalTarefas(){
-        return this.tarefas.getSize();
+        return this.lista.size();
     }
 
     public String remover(UUID id){

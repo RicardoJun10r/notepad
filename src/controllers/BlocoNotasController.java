@@ -11,12 +11,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Tarefa;
 import util.Interfaces.List.InterList;
 import util.Interfaces.ManipularArquivos.Arquivos;
 import util.List.DuplamenteEncadeada.ListaDuplamenteEncadeada;
 import util.Log.NaoTemNadaAqui;
 import util.ManipulacaoDeArquivos.ArquivoBinario;
 import util.ManipulacaoDeArquivos.ArquivoTexto;
+import view.VE.Demo;
 
 public class BlocoNotasController {
 
@@ -24,7 +26,7 @@ public class BlocoNotasController {
     private MenuItem abridorDeArquivo;
 
     @FXML
-    private MenuItem ajuda;
+    private MenuItem voltarHome;
 
     @FXML
     private MenuItem clear;
@@ -39,6 +41,7 @@ public class BlocoNotasController {
 
     private Arquivos arquivos_binario = new ArquivoBinario();
 
+    private Tarefa tarefa;
 
     @FXML
     void abrirArquivo(ActionEvent event) {
@@ -63,8 +66,8 @@ public class BlocoNotasController {
     }
 
     @FXML
-    void abrirMenu(ActionEvent event) {
-        
+    void voltar(ActionEvent event) throws IOException {
+        Demo.iniciar();
     }
 
     @FXML
@@ -94,5 +97,9 @@ public class BlocoNotasController {
             e.printStackTrace();
         }
     }
+
+    String getFile(){
+        return this.arquivos_binario.getPATH();
+    } 
 
 }
