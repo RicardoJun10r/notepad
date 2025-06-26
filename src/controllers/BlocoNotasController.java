@@ -1,65 +1,31 @@
 package controllers;
 
-import java.io.File;
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import util.Interfaces.List.InterList;
-import util.Interfaces.ManipularArquivos.Arquivos;
-import util.List.DuplamenteEncadeada.ListaDuplamenteEncadeada;
-import util.Log.NaoTemNadaAqui;
-import util.ManipulacaoDeArquivos.ArquivoBinario;
-import view.VE.Demo;
+import model.Tarefa;
 
 public class BlocoNotasController {
 
     @FXML
-    private MenuItem abridorDeArquivo;
-
-    @FXML
-    private MenuItem voltarHome;
-
-    @FXML
-    private MenuItem clear;
-
-    @FXML
     private TextArea areaTexto;
 
-    @FXML
-    private MenuItem salvadorDeArquivo;
+    private Tarefa tarefaAtual;
 
-    private Arquivos arquivos_binario = new ArquivoBinario();
-
-    @FXML
-    void abrirArquivo(ActionEvent event) {
-        Stage stg = new Stage();
-        stg.setTitle("Abrir arquivo");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("src/tmp"));
-        File selectedFile = fileChooser.showOpenDialog(stg);
-        if (selectedFile != null) {
-            this.arquivos_binario.setPATH(selectedFile.getPath());
-        }
-        try {
-            this.areaTexto.clear();
-            this.areaTexto.appendText(this.arquivos_binario.ler().removerElemento().toString());
-        } catch (NaoTemNadaAqui e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void initData(Tarefa tarefa) {
+        this.tarefaAtual = tarefa;
+        if (tarefa.getNotas() != null) {
+            areaTexto.setText(tarefa.getNotas());
         }
     }
 
     @FXML
-    void voltar(ActionEvent event) throws IOException {
-        Demo.iniciar();
+    void salvarEVoltar(ActionEvent event) {
+        if (tarefaAtual != null) {
+            tarefaAtual.setNotas(areaTexto.getText());
+        }
+        fecharJanela();
     }
 
     @FXML
@@ -68,30 +34,12 @@ public class BlocoNotasController {
     }
 
     @FXML
-    void salvarArquivo(ActionEvent event) {
-        Stage stg = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Salvar Arquivo");
-        fileChooser.setInitialDirectory(new File("src/tmp"));
-        File file = fileChooser.showSaveDialog(stg);
-        if (file != null) {
-            InterList<Object> texto = new ListaDuplamenteEncadeada<>();
-            texto.adicionar(this.areaTexto.getText());
-            this.arquivos_binario.setPATH(file.getAbsolutePath());
-            this.arquivos_binario.setListaObjetos(texto);
-            System.out.println(this.areaTexto.getText());
-        }
-        try {
-            this.arquivos_binario.escrever();
-        } catch (NaoTemNadaAqui e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    void cancelar(ActionEvent event) {
+        fecharJanela();
     }
 
-    String getFile() {
-        return this.arquivos_binario.getPATH();
+    private void fecharJanela() {
+        Stage stage = (Stage) areaTexto.getScene().getWindow();
+        stage.close();
     }
-
 }

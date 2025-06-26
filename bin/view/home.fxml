@@ -1,256 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?> <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-   prefHeight="603.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/19"
+<StackPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1"
    xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <children>
-      <AnchorPane prefHeight="55.0" prefWidth="605.0" style="-fx-background-color: #AAAA;">
+      <AnchorPane>
          <children>
-            <Text layoutX="260.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0"
-               text="Notepad">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutY="55.0" prefHeight="516.0" prefWidth="47.0"
-         style="-fx-background-color: #AAAA;">
-         <children>
-            <VBox prefHeight="546.0" prefWidth="47.0" style="-fx-background-color: #FFFF;">
+            <AnchorPane styleClass="header" prefHeight="55.0" prefWidth="800.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="home_icon" mnemonicParsing="false" onAction="#irParaHome">
+                  <Text layoutX="346.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                     text="Gerenciador de Tarefas">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <VBox styleClass="sidebar" layoutY="55.0" prefHeight="545.0" prefWidth="70.0"
+               alignment="TOP_CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="55.0">
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+               <children>
+                  <Button styleClass="sidebar-button" mnemonicParsing="false" onAction="#irParaHome">
+                     <tooltip>
+                        <Tooltip text="Início" />
+                     </tooltip>
                      <graphic>
-                        <ImageView fitHeight="47.0" fitWidth="53.0" pickOnBounds="true"
-                           preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../Downloads/home%20(2).png" />
-                           </image>
-                        </ImageView>
+                        <SVGPath styleClass="sidebar-icon"
+                           content="M4.5 21V12H9.5V21H15.5V9.5L12 6.5L8.5 9.5V21H4.5Z" />
                      </graphic>
                   </Button>
-                  <Button fx:id="criar_icon" mnemonicParsing="false" onAction="#abrirModalCriar">
+                  <Button styleClass="sidebar-button" mnemonicParsing="false"
+                     onAction="#abrirModalCriar">
+                     <tooltip>
+                        <Tooltip text="Nova Tarefa" />
+                     </tooltip>
                      <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="52.0" pickOnBounds="true"
-                           preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../Downloads/plus.png" />
-                           </image>
-                        </ImageView>
+                        <SVGPath styleClass="sidebar-icon"
+                           content="M11 19V13H5V11H11V5H13V11H19V13H13V19H11Z" />
                      </graphic>
                   </Button>
-                  <Button fx:id="logout_icon" mnemonicParsing="false" onAction="#fechar">
+                  <Button styleClass="sidebar-button" mnemonicParsing="false" onAction="#fecharApp">
+                     <tooltip>
+                        <Tooltip text="Sair" />
+                     </tooltip>
                      <graphic>
-                        <ImageView fitHeight="46.0" fitWidth="59.0" pickOnBounds="true"
-                           preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../Downloads/logout.png" />
-                           </image>
-                        </ImageView>
+                        <SVGPath styleClass="sidebar-icon"
+                           content="M5 21V3H13.5V12H12.5V4H6V20H12.5V13H13.5V21H5ZM17.5 17L16.075 15.6L17.675 14H12V12H17.675L16.075 10.4L17.5 9L21 13L17.5 17Z" />
                      </graphic>
                   </Button>
                </children>
             </VBox>
+            <VBox fx:id="tabelaPane" alignment="TOP_CENTER" layoutX="70.0" layoutY="55.0"
+               prefHeight="545.0" prefWidth="730.0" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <TableView fx:id="tabelaTarefas" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="colNome" prefWidth="200.0" text="Nome" />
+                        <TableColumn fx:id="colDescricao" prefWidth="250.0" text="Descrição" />
+                        <TableColumn fx:id="colData" prefWidth="130.0" text="Data" />
+                        <TableColumn fx:id="colPrioridade" prefWidth="120.0" text="Prioridade" />
+                     </columns>
+                  </TableView>
+                  <HBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <Button fx:id="botaoAbrirNotas" styleClass="default-button"
+                           onAction="#abrirNotas" text="Abrir Notas" />
+                        <Button fx:id="botaoEditar" styleClass="action-button"
+                           onAction="#abrirModalEditar" text="Editar Tarefa" />
+                        <Button fx:id="botaoDeletar" styleClass="danger-button"
+                           onAction="#deletarTarefa" text="Deletar Tarefa" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
-      <Pane fx:id="TABELA_PANE" layoutX="65.0" layoutY="97.0" prefHeight="503.0" prefWidth="540.0">
+      <VBox fx:id="criarModalPane" styleClass="modal-overlay" alignment="CENTER" visible="false">
          <children>
-            <TableView fx:id="TABELA" prefHeight="410.0" prefWidth="540.0">
-               <columns>
-                  <TableColumn fx:id="col_id" prefWidth="62.0" text="id" />
-                  <TableColumn fx:id="col_nome" prefWidth="128.0" text="nome" />
-                  <TableColumn fx:id="col_descricao" prefWidth="111.0" text="descricao" />
-                  <TableColumn fx:id="col_data" prefWidth="121.0" text="data" />
-                  <TableColumn fx:id="col_prioridade" prefWidth="117.0" text="prioridade" />
-               </columns>
-            </TableView>
-            <Button fx:id="botaoAbrirNotas" layoutX="197.0" layoutY="436.0" mnemonicParsing="false"
-               onAction="#abrirNotas" text="Abrir" />
-            <Button fx:id="botaoDeletarNotas" layoutX="292.0" layoutY="436.0"
-               mnemonicParsing="false" onAction="#deletarNotas"
-               style="-fx-background-color: #FF0000;" text="Deletar" />
-         </children>
-      </Pane>
-      <Pane fx:id="CRIAR_MODAL_PANE" layoutX="97.0" layoutY="65.0" prefHeight="43.0"
-         prefWidth="85.0" visible="false">
-         <children>
-            <Pane prefHeight="363.0" prefWidth="450.0" style="-fx-background-color: #AAA;">
+            <VBox styleClass="modal-pane" maxWidth="500.0" spacing="20.0">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
                <children>
-                  <GridPane prefHeight="342.0" prefWidth="434.0">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"
-                           prefWidth="100.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"
-                           prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
-                           vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  <Text text="Criar Nova Tarefa" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+                  <GridPane hgap="10.0" vgap="15.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descricao:"
-                           GridPane.rowIndex="1">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prioridade:"
-                           GridPane.rowIndex="2">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data:"
-                           GridPane.rowIndex="3">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="tarefa_nome" prefHeight="24.0" prefWidth="152.0"
-                           GridPane.columnIndex="1" />
-                        <TextField fx:id="tarefa_descricao" prefHeight="24.0" prefWidth="152.0"
-                           GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <DatePicker fx:id="tarefa_data" GridPane.columnIndex="1"
+                        <Text text="Nome:" GridPane.halignment="RIGHT" />
+                        <TextField fx:id="tarefaNome" GridPane.columnIndex="1" />
+                        <Text text="Descrição:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <TextField fx:id="tarefaDescricao" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1" />
+                        <Text text="Prioridade:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <HBox spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <RadioButton fx:id="prioridadeAlta" text="Alta">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="prioridadeGroup" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="prioridadeMedia" text="Média"
+                                 toggleGroup="$prioridadeGroup" />
+                              <RadioButton fx:id="prioridadeBaixa" selected="true" text="Baixa"
+                                 toggleGroup="$prioridadeGroup" />
+                           </children>
+                        </HBox>
+                        <Text text="Data:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="tarefaData" GridPane.columnIndex="1"
                            GridPane.rowIndex="3" />
-                        <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="174.0"
-                           text="Escolha" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <items>
-                              <RadioMenuItem fx:id="prioridade_alta" mnemonicParsing="false"
-                                 text="Alta" />
-                              <RadioMenuItem fx:id="prioridade_media" mnemonicParsing="false"
-                                 text="Media" />
-                              <RadioMenuItem fx:id="prioridade_baixa" mnemonicParsing="false"
-                                 text="Baixa" />
-                           </items>
-                        </MenuButton>
-                        <Button fx:id="cancelarBottaoAdd" mnemonicParsing="false"
-                           onAction="#fecharModalAdd" style="-fx-background-color: #FF0000;"
-                           text="Cancelar" GridPane.rowIndex="4" />
-                        <Button fx:id="criarBotaoAdd" mnemonicParsing="false"
-                           onAction="#criarModalAdd" style="-fx-background-color: #00FF00;"
-                           text="Criar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane fx:id="EDITAR_MODAL_PANE" layoutX="88.0" layoutY="76.0" prefHeight="43.0"
-         prefWidth="85.0" visible="false">
-         <children>
-            <Pane prefHeight="363.0" prefWidth="450.0" style="-fx-background-color: #AAA;">
-               <children>
-                  <GridPane prefHeight="342.0" prefWidth="434.0">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"
-                           prefWidth="100.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"
-                           prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
-                           vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  <HBox alignment="CENTER" spacing="20.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:"
-                           GridPane.rowIndex="1">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descricao:"
-                           GridPane.rowIndex="2">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prioridade:"
-                           GridPane.rowIndex="3">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data:"
-                           GridPane.rowIndex="4">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="tarefa_nome_editar" prefHeight="24.0" prefWidth="152.0"
-                           GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tarefa_descricao_editar" prefHeight="24.0"
-                           prefWidth="152.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="174.0"
-                           text="Escolha" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <items>
-                              <RadioMenuItem fx:id="tarefa_alta_editar" mnemonicParsing="false"
-                                 text="Alta" />
-                              <RadioMenuItem fx:id="tarefa_media_editar" mnemonicParsing="false"
-                                 text="Media" />
-                              <RadioMenuItem fx:id="tarefa_baixa_editar" mnemonicParsing="false"
-                                 text="Baixa" />
-                           </items>
-                        </MenuButton>
-                        <Button fx:id="cancelarBotaoEditar" mnemonicParsing="false"
-                           onAction="#fecharEdicao" style="-fx-background-color: #FF0000;"
-                           text="Cancelar" GridPane.rowIndex="6" />
-                        <Button fx:id="atualizarBotaoEditar" mnemonicParsing="false"
-                           onAction="#atualizar" style="-fx-background-color: #00FF00;"
-                           text="Atualizar" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="tarefa_id_editar" prefHeight="24.0" prefWidth="152.0"
-                           GridPane.columnIndex="1" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Caminho do arquivo:"
-                           GridPane.rowIndex="5">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="tarefa_caminho_editar" prefHeight="24.0" prefWidth="152.0"
-                           GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Button styleClass="danger-button" onAction="#irParaHome" text="Cancelar"
+                           prefWidth="120.0" />
+                        <Button styleClass="primary-button" onAction="#criarTarefa" text="Criar"
+                           prefWidth="120.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox fx:id="editarModalPane" styleClass="modal-overlay" alignment="CENTER" visible="false">
+         <children>
+            <VBox styleClass="modal-pane" maxWidth="500.0" spacing="20.0">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <children>
+                  <Text text="Editar Tarefa" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+                  <GridPane hgap="10.0" vgap="15.0">
+                     <children>
+                        <Text text="Nome:" GridPane.halignment="RIGHT" />
+                        <TextField fx:id="tarefaNomeEditar" GridPane.columnIndex="1" />
+                        <Text text="Descrição:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <TextField fx:id="tarefaDescricaoEditar" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1" />
+                        <Text text="Prioridade:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <HBox spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <RadioButton fx:id="tarefaAltaEditar" text="Alta">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="prioridadeGroupEditar" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="tarefaMediaEditar" text="Média"
+                                 toggleGroup="$prioridadeGroupEditar" />
+                              <RadioButton fx:id="tarefaBaixaEditar" text="Baixa"
+                                 toggleGroup="$prioridadeGroupEditar" />
+                           </children>
+                        </HBox>
+                        <Text text="Data:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="tarefaDataEditar" GridPane.columnIndex="1"
+                           GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
+                  <HBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <Button styleClass="danger-button" onAction="#irParaHome" text="Cancelar"
+                           prefWidth="120.0" />
+                        <Button styleClass="primary-button" onAction="#atualizarTarefa"
+                           text="Atualizar" prefWidth="120.0" />
+                     </children>
+                  </HBox>
                </children>
-            </Pane>
+            </VBox>
          </children>
-      </Pane>
+      </VBox>
    </children>
-</AnchorPane>
+</StackPane>

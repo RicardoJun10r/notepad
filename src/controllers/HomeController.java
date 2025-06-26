@@ -1,260 +1,265 @@
 package controllers;
 
-import java.time.LocalDate;
-import java.util.ResourceBundle;
-import java.util.UUID;
-
-import java.io.IOException;
-import java.net.URL;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Prioridade;
 import model.Tarefa;
 import service.GerenciadorTarefas;
-import view.VE.Demo;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
-public class HomeController<E> implements Initializable {
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+public class HomeController implements Initializable {
 
     @FXML
-    private TableView<Tarefa> TABELA = new TableView<>();
+    private TableView<Tarefa> tabelaTarefas;
+    @FXML
+    private TableColumn<Tarefa, LocalDate> colData;
+    @FXML
+    private TableColumn<Tarefa, String> colDescricao;
+    @FXML
+    private TableColumn<Tarefa, String> colNome;
+    @FXML
+    private TableColumn<Tarefa, Prioridade> colPrioridade;
+
+    @FXML
+    private Pane criarModalPane;
+    @FXML
+    private Pane editarModalPane;
+    @FXML
+    private Pane tabelaPane;
 
     @FXML
     private Button botaoAbrirNotas;
+    @FXML
+    private Button botaoDeletar;
+    @FXML
+    private Button botaoEditar;
 
     @FXML
-    private Button botaoDeletarNotas;
+    private TextField tarefaNome;
+    @FXML
+    private TextField tarefaDescricao;
+    @FXML
+    private DatePicker tarefaData;
+    @FXML
+    private ToggleGroup prioridadeGroup;
+    @FXML
+    private RadioButton prioridadeAlta;
+    @FXML
+    private RadioButton prioridadeMedia;
+    @FXML
+    private RadioButton prioridadeBaixa;
 
     @FXML
-    private TableColumn<Tarefa, LocalDate> col_data;
-
+    private TextField tarefaNomeEditar;
     @FXML
-    private TableColumn<Tarefa, String> col_descricao;
-
+    private TextField tarefaDescricaoEditar;
     @FXML
-    private TableColumn<Tarefa, UUID> col_id;
-
+    private DatePicker tarefaDataEditar;
     @FXML
-    private TableColumn<Tarefa, String> col_nome;
-
+    private ToggleGroup prioridadeGroupEditar;
     @FXML
-    private TableColumn<Tarefa, Prioridade> col_prioridade;
-
+    private RadioButton tarefaAltaEditar;
     @FXML
-    private Pane CRIAR_MODAL_PANE;
-
+    private RadioButton tarefaMediaEditar;
     @FXML
-    private Pane EDITAR_MODAL_PANE;
+    private RadioButton tarefaBaixaEditar;
 
-    @FXML
-    private Pane TABELA_PANE;
-
-    @FXML
-    private Button atualizarBotaoEditar;
-
-    @FXML
-    private Button cancelarBotaoEditar;
-
-    @FXML
-    private Button cancelarBottaoAdd;
-
-    @FXML
-    private Button criarBotaoAdd;
-
-    @FXML
-    private Button criar_icon;
-
-    @FXML
-    private Button editar_icon;
-
-    @FXML
-    private Button home_icon;
-
-    @FXML
-    private Button logout_icon;
-
-    @FXML
-    private RadioMenuItem prioridade_alta;
-
-    @FXML
-    private RadioMenuItem prioridade_baixa;
-
-    @FXML
-    private RadioMenuItem prioridade_media;
-
-    @FXML
-    private RadioMenuItem tarefa_alta_editar;
-
-    @FXML
-    private RadioMenuItem tarefa_baixa_editar;
-
-    @FXML
-    private TextField tarefa_caminho_editar;
-
-    @FXML
-    private DatePicker tarefa_data;
-
-    @FXML
-    private TextField tarefa_descricao;
-
-    @FXML
-    private TextField tarefa_descricao_editar;
-
-    @FXML
-    private TextField tarefa_id_editar;
-
-    @FXML
-    private RadioMenuItem tarefa_media_editar;
-
-    @FXML
-    private TextField tarefa_nome;
-
-    @FXML
-    private TextField tarefa_nome_editar;
-
-    private GerenciadorTarefas tarefas = new GerenciadorTarefas();
-
+    private GerenciadorTarefas gerenciadorTarefas;
     private ObservableList<Tarefa> observableTarefas;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.gerenciadorTarefas = new GerenciadorTarefas();
+        setupTable();
         carregarTabelaTarefas();
-
-        this.TABELA.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> selecionarItemTableViewTarefas(newValue));
+        setupBindings();
+        irParaHome(null);
     }
 
-    public void carregarTabelaTarefas() {
+    private void setupTable() {
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colPrioridade.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
 
-        this.col_id.setCellValueFactory(new PropertyValueFactory<>("ID"));
-        this.col_nome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
-        this.col_descricao.setCellValueFactory(new PropertyValueFactory<>("Descricao"));
-        this.col_data.setCellValueFactory(new PropertyValueFactory<>("Data"));
-        this.col_prioridade.setCellValueFactory(new PropertyValueFactory<>("Prioridade"));
+        observableTarefas = FXCollections.observableArrayList();
+        tabelaTarefas.setItems(observableTarefas);
+    }
 
-        try {
-            this.observableTarefas = FXCollections.observableArrayList(
-                    this.tarefas.listar());
-            this.TABELA.setItems(observableTarefas);
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void setupBindings() {
+        botaoEditar.disableProperty().bind(tabelaTarefas.getSelectionModel().selectedItemProperty().isNull());
+        botaoDeletar.disableProperty().bind(tabelaTarefas.getSelectionModel().selectedItemProperty().isNull());
+        botaoAbrirNotas.disableProperty().bind(tabelaTarefas.getSelectionModel().selectedItemProperty().isNull());
+    }
+
+    private void carregarTabelaTarefas() {
+        observableTarefas.setAll(gerenciadorTarefas.listarTodas());
+    }
+
+    @FXML
+    void abrirModalCriar(ActionEvent event) {
+        limparCamposCriar();
+        tabelaPane.setVisible(false);
+        editarModalPane.setVisible(false);
+        criarModalPane.setVisible(true);
+    }
+
+    @FXML
+    void criarTarefa(ActionEvent event) {
+        Tarefa novaTarefa = new Tarefa();
+        novaTarefa.setNome(tarefaNome.getText());
+        novaTarefa.setDescricao(tarefaDescricao.getText());
+        novaTarefa.setData(tarefaData.getValue());
+        novaTarefa.setPrioridade(getPrioridadeFromToggle(prioridadeGroup));
+
+        gerenciadorTarefas.adicionarTarefa(novaTarefa);
+        observableTarefas.add(novaTarefa);
+
+        irParaHome(null);
+    }
+
+    @FXML
+    void abrirModalEditar(ActionEvent event) {
+        Tarefa tarefaSelecionada = tabelaTarefas.getSelectionModel().getSelectedItem();
+        if (tarefaSelecionada == null) {
+            exibirAlerta("Nenhuma tarefa selecionada", "Por favor, selecione uma tarefa para editar.");
+            return;
         }
+
+        tarefaNomeEditar.setText(tarefaSelecionada.getNome());
+        tarefaDescricaoEditar.setText(tarefaSelecionada.getDescricao());
+        tarefaDataEditar.setValue(tarefaSelecionada.getData());
+        setPrioridadeInToggle(prioridadeGroupEditar, tarefaSelecionada.getPrioridade());
+
+        tabelaPane.setVisible(false);
+        criarModalPane.setVisible(false);
+        editarModalPane.setVisible(true);
     }
 
-    public void selecionarItemTableViewTarefas(Tarefa tarefa) {
-        if (tarefa != null) {
-            System.out.println("Tarefa selecionado no TableView: " + tarefa.getNome());
+    @FXML
+    void atualizarTarefa(ActionEvent event) {
+        Tarefa tarefaSelecionada = tabelaTarefas.getSelectionModel().getSelectedItem();
+        if (tarefaSelecionada == null)
+            return;
+
+        Tarefa tarefaAtualizada = new Tarefa();
+        tarefaAtualizada.setNome(tarefaNomeEditar.getText());
+        tarefaAtualizada.setDescricao(tarefaDescricaoEditar.getText());
+        tarefaAtualizada.setData(tarefaDataEditar.getValue());
+        tarefaAtualizada.setPrioridade(getPrioridadeFromToggle(prioridadeGroupEditar));
+        tarefaAtualizada.setNotas(tarefaSelecionada.getNotas());
+
+        gerenciadorTarefas.atualizar(tarefaSelecionada.getId(), tarefaAtualizada);
+
+        tabelaTarefas.refresh();
+
+        irParaHome(null);
+    }
+
+    @FXML
+    void deletarTarefa(ActionEvent event) {
+        Tarefa tarefaSelecionada = tabelaTarefas.getSelectionModel().getSelectedItem();
+        if (tarefaSelecionada != null) {
+            gerenciadorTarefas.remover(tarefaSelecionada.getId());
+            observableTarefas.remove(tarefaSelecionada);
+        } else {
+            exibirAlerta("Nenhuma tarefa selecionada", "Por favor, selecione a tarefa que deseja excluir.");
         }
     }
 
     @FXML
     void abrirNotas(ActionEvent event) throws IOException {
-        Tarefa tarefa = TABELA.getSelectionModel().getSelectedItem();
-        if (tarefa != null) {
-            System.out.println("tarefa removido do TableView: " + tarefa.getNome());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/blocoNotas.fxml"));
-            BlocoNotasController blocoNotasController = loader.getController();
-            tarefa.setNotas(blocoNotasController.getFile());
-            Demo.notas();
-        }
-    }
+        Tarefa tarefaSelecionada = tabelaTarefas.getSelectionModel().getSelectedItem();
+        if (tarefaSelecionada == null)
+            return;
 
-    @FXML
-    void deletarNotas(ActionEvent event) {
-        Tarefa tarefa = TABELA.getSelectionModel().getSelectedItem();
-        if (tarefa != null) {
-            System.out.println("tarefa removido do TableView: " + tarefa.getNome());
-            TABELA.getItems().remove(tarefa);
-        }
-    }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/blocoNotas.fxml"));
+        Parent root = loader.load();
 
-    @FXML
-    void abrirModalCriar(ActionEvent event) {
-        TABELA_PANE.setVisible(false);
-        EDITAR_MODAL_PANE.setVisible(false);
-        CRIAR_MODAL_PANE.setVisible(true);
-    }
+        BlocoNotasController notasController = loader.getController();
+        notasController.initData(tarefaSelecionada);
 
-    private void addPrioridade(Tarefa task) {
-        if (this.prioridade_alta.isSelected())
-            task.setPrioridade(Prioridade.ALTA);
-        else if (this.prioridade_media.isSelected())
-            task.setPrioridade(Prioridade.MEDIA);
-        else
-            task.setPrioridade(Prioridade.BAIXA);
-    }
+        Stage stage = new Stage();
+        stage.setTitle("Notas da Tarefa: " + tarefaSelecionada.getNome());
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
 
-    @FXML
-    void abrirModalEditar(ActionEvent event) {
-        TABELA_PANE.setVisible(false);
-        CRIAR_MODAL_PANE.setVisible(false);
-        EDITAR_MODAL_PANE.setVisible(true);
-    }
-
-    @FXML
-    void atualizar(ActionEvent event) {
-
-    }
-
-    @FXML
-    void criarModalAdd(ActionEvent event) {
-        Tarefa nova_tarefa = new Tarefa();
-        nova_tarefa.setNome(this.tarefa_nome.getText());
-        nova_tarefa.setDescricao(this.tarefa_descricao.getText());
-        this.addPrioridade(nova_tarefa);
-        nova_tarefa.setData(this.tarefa_data.getValue());
-        nova_tarefa.setNotas(null);
-        this.tarefas.adicionarTarefa(nova_tarefa);
-        CRIAR_MODAL_PANE.setVisible(false);
-        TABELA_PANE.setVisible(true);
-        this.tarefa_nome.setText("");
-        this.tarefa_descricao.setText("");
-        this.prioridade_alta.setSelected(false);
-        this.prioridade_media.setSelected(false);
-        this.prioridade_baixa.setSelected(false);
-        this.tarefa_data.setValue(null);
-        this.carregarTabelaTarefas();
-    }
-
-    @FXML
-    void fechar(ActionEvent event) {
-        Demo.fechar();
-    }
-
-    @FXML
-    void fecharEdicao(ActionEvent event) {
-        EDITAR_MODAL_PANE.setVisible(false);
-        TABELA_PANE.setVisible(true);
-    }
-
-    @FXML
-    void fecharModalAdd(ActionEvent event) {
-        this.tarefa_nome.setText("");
-        this.tarefa_descricao.setText("");
-        this.prioridade_alta.setSelected(false);
-        this.prioridade_media.setSelected(false);
-        this.prioridade_baixa.setSelected(false);
-        this.tarefa_data.setValue(null);
-        CRIAR_MODAL_PANE.setVisible(false);
-        TABELA_PANE.setVisible(true);
+        tabelaTarefas.refresh();
     }
 
     @FXML
     void irParaHome(ActionEvent event) {
-        TABELA_PANE.setVisible(true);
-        CRIAR_MODAL_PANE.setVisible(false);
-        EDITAR_MODAL_PANE.setVisible(false);
+        tabelaPane.setVisible(true);
+        criarModalPane.setVisible(false);
+        editarModalPane.setVisible(false);
+        tabelaTarefas.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    void fecharApp(ActionEvent event) {
+        Stage stage = (Stage) tabelaPane.getScene().getWindow();
+        stage.close();
+    }
+
+    private Prioridade getPrioridadeFromToggle(ToggleGroup group) {
+        RadioButton selected = (RadioButton) group.getSelectedToggle();
+        if (selected != null) {
+            String id = selected.getId();
+            if (id.contains("Alta"))
+                return Prioridade.ALTA;
+            if (id.contains("Media"))
+                return Prioridade.MEDIA;
+        }
+        return Prioridade.BAIXA;
+    }
+
+    private void setPrioridadeInToggle(ToggleGroup group, Prioridade prioridade) {
+        if (prioridade == null) {
+            group.selectToggle(tarefaBaixaEditar);
+            return;
+        }
+        switch (prioridade) {
+            case ALTA:
+                group.selectToggle(tarefaAltaEditar);
+                break;
+            case MEDIA:
+                group.selectToggle(tarefaMediaEditar);
+                break;
+            case BAIXA:
+            default:
+                group.selectToggle(tarefaBaixaEditar);
+                break;
+        }
+    }
+
+    private void limparCamposCriar() {
+        tarefaNome.clear();
+        tarefaDescricao.clear();
+        tarefaData.setValue(null);
+        prioridadeGroup.selectToggle(prioridadeBaixa);
+    }
+
+    private void exibirAlerta(String titulo, String conteudo) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(conteudo);
+        alert.showAndWait();
     }
 }

@@ -6,33 +6,26 @@ import java.util.UUID;
 public class Tarefa {
 
     private UUID id;
-
     private String nome;
-
     private String descricao;
-
     private LocalDate data;
-
     private Prioridade prioridade;
-
     private String notas;
 
     public Tarefa(String nome, String descricao, LocalDate data, Prioridade prioridade, String notas) {
-
         this.id = UUID.randomUUID();
         this.nome = nome;
         this.descricao = descricao;
         this.data = data;
         this.prioridade = prioridade;
         this.notas = notas;
-
     }
 
     public Tarefa() {
         this.id = UUID.randomUUID();
     }
 
-    public UUID getID() {
+    public UUID getId() {
         return id;
     }
 
@@ -80,12 +73,13 @@ public class Tarefa {
         this.notas = notas;
     }
 
-    public void exibirTarefa() {
-        System.out.println("Descrição: " + descricao);
-        System.out.println("Data de vencimento: " + data);
-        System.out.println("Nome: " + nome);
-        System.out.println("Prioridade: " + prioridade);
-        System.out.println("Notas: " + notas);
-        System.out.println("-----------");
+    @Override
+    public String toString() {
+        return "Tarefa{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", data=" + data +
+                ", prioridade=" + prioridade +
+                '}';
     }
 }
