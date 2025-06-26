@@ -3,21 +3,17 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.Tarefa;
 import util.Interfaces.List.InterList;
 import util.Interfaces.ManipularArquivos.Arquivos;
 import util.List.DuplamenteEncadeada.ListaDuplamenteEncadeada;
 import util.Log.NaoTemNadaAqui;
 import util.ManipulacaoDeArquivos.ArquivoBinario;
-import util.ManipulacaoDeArquivos.ArquivoTexto;
 import view.VE.Demo;
 
 public class BlocoNotasController {
@@ -37,11 +33,7 @@ public class BlocoNotasController {
     @FXML
     private MenuItem salvadorDeArquivo;
 
-    private Arquivos arquivos_de_texto = new ArquivoTexto();
-
     private Arquivos arquivos_binario = new ArquivoBinario();
-
-    private Tarefa tarefa;
 
     @FXML
     void abrirArquivo(ActionEvent event) {
@@ -49,8 +41,8 @@ public class BlocoNotasController {
         stg.setTitle("Abrir arquivo");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("src/tmp"));
-        File selectedFile =  fileChooser.showOpenDialog(stg);
-        if(selectedFile != null){
+        File selectedFile = fileChooser.showOpenDialog(stg);
+        if (selectedFile != null) {
             this.arquivos_binario.setPATH(selectedFile.getPath());
         }
         try {
@@ -82,7 +74,7 @@ public class BlocoNotasController {
         fileChooser.setTitle("Salvar Arquivo");
         fileChooser.setInitialDirectory(new File("src/tmp"));
         File file = fileChooser.showSaveDialog(stg);
-        if(file != null){
+        if (file != null) {
             InterList<Object> texto = new ListaDuplamenteEncadeada<>();
             texto.adicionar(this.areaTexto.getText());
             this.arquivos_binario.setPATH(file.getAbsolutePath());
@@ -98,8 +90,8 @@ public class BlocoNotasController {
         }
     }
 
-    String getFile(){
+    String getFile() {
         return this.arquivos_binario.getPATH();
-    } 
+    }
 
 }

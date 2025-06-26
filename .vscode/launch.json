@@ -9,9 +9,16 @@
             "name": "Demo",
             "request": "launch",
             "mainClass": "view.VE.Demo",
+            "projectName": "notepad_b2a0d9c2",
+            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Demo",
+            "request": "launch",
+            "mainClass": "view.VE.Demo",
             "projectName": "notepad_a301f0cd",
             "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-
         },
         {
             "type": "java",
@@ -20,7 +27,6 @@
             "mainClass": "VE.TelaNotas",
             "projectName": "notepad_a301f0cd",
             "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-
         },
         {
             "type": "java",
@@ -29,7 +35,6 @@
             "mainClass": "VE.Demo",
             "projectName": "notepad_a301f0cd",
             "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-
         },
         {
             "type": "java",
@@ -37,7 +42,6 @@
             "request": "launch",
             "mainClass": "${file}",
             "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-
         },
         {
             "type": "java",

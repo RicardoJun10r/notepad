@@ -3,13 +3,17 @@ package util.List.DuplamenteEncadeada;
 import java.io.Serializable;
 
 /**
- * <h1>NoDuplo</h1> é uma classe {@code NoDuplo} para armazenar os dados na lista encadeada.
- * <p>Esta classe implementa {@link Serializable} para poder manipular arquivos.</p>
+ * <h1>NoDuplo</h1> é uma classe {@code NoDuplo} para armazenar os dados na
+ * lista encadeada.
+ * <p>
+ * Esta classe implementa {@link Serializable} para poder manipular arquivos.
+ * </p>
+ * 
  * @author Ricardo Cezar Fernandes de Melo Junior
  */
 public class NoDuplo<T> implements Serializable {
-    
-    //#region Atributos
+
+    // #region Atributos
 
     private T valor;
 
@@ -17,9 +21,9 @@ public class NoDuplo<T> implements Serializable {
 
     private NoDuplo<T> anterior;
 
-    //#endregion
+    // #endregion
 
-    //#region Construtor
+    // #region Construtor
 
     public NoDuplo(T valor) {
         this.valor = valor;
@@ -27,9 +31,9 @@ public class NoDuplo<T> implements Serializable {
         this.proximo = null;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Métodos
+    // #region Métodos
 
     public T getValor() {
         return valor;
@@ -55,5 +59,5 @@ public class NoDuplo<T> implements Serializable {
         this.anterior = anterior;
     }
 
-    //#endregion
+    // #endregion
 }

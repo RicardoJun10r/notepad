@@ -7,51 +7,59 @@ import util.Log.ForaDosLimites;
 import util.Log.NaoTemNadaAqui;
 
 /**
- * <h1>MinhaStackComLista</h1> é uma classe {@code MinhaStackComLista} implementa estrutura de dados com comportamento de pilha.
- * <p>Esta pilha utiliza lista encadeada.</p>
- * <p>Esta classe implementa as seguintes interfaces:</p>
+ * <h1>MinhaStackComLista</h1> é uma classe {@code MinhaStackComLista}
+ * implementa estrutura de dados com comportamento de pilha.
+ * <p>
+ * Esta pilha utiliza lista encadeada.
+ * </p>
+ * <p>
+ * Esta classe implementa as seguintes interfaces:
+ * </p>
  * <ul>
  * <li>{@link StackQueueInteface}</li>
  * <li>{@link CollectionInteface}</li>
  * </ul>
+ * 
  * @author Ricardo Cezar Fernandes de Melo Junior
  */
 public class MinhaStackComLista<T> implements StackQueueInteface<T> {
 
-    //#region Atributos
+    // #region Atributos
 
-    private InterList<T> pilhaComList;              // Lista encadeada, para simular comportamento de pilha
+    private InterList<T> pilhaComList; // Lista encadeada, para simular comportamento de pilha
 
     private Integer ultimo;
 
     private Integer tamanho;
 
-    //#endregion
+    // #endregion
 
-    //#region Construtor
+    // #region Construtor
 
     /**
      * Método construtor da classe {@code MinhaStackComLista}
+     * 
      * @param tamanho estabele o tamanho da pilha
      */
-    public MinhaStackComLista(Integer tamanho){
+    public MinhaStackComLista(Integer tamanho) {
         this.pilhaComList = new ListaDuplamenteEncadeada<>();
         this.ultimo = -1;
         this.tamanho = tamanho;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Métodos
+    // #region Métodos
 
     /**
      * Método que adiciona um elemento na pilha
+     * 
      * @param valor é o valor que será adicionado
      * @return void
      */
     @Override
     public void adicionar(T valor) {
-        if(isFull()){
+        if (isFull()) {
             throw new ForaDosLimites("Pilha [ CHEIA ]");
         }
         this.pilhaComList.adicionar(valor);
@@ -60,11 +68,12 @@ public class MinhaStackComLista<T> implements StackQueueInteface<T> {
 
     /**
      * Método que remove um elemento na pilha
+     * 
      * @return valor removido
      */
     @Override
     public T removerElemento() throws ForaDosLimites {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new ForaDosLimites("Pilha [ VAZIA ]");
         }
         T valor = this.pilhaComList.removerElemento();
@@ -74,11 +83,12 @@ public class MinhaStackComLista<T> implements StackQueueInteface<T> {
 
     /**
      * Método que mostra o primeiro elemento da pilha
+     * 
      * @return valor que está em primeiro.
      */
     @Override
     public T mostrarPrimeiro() throws NaoTemNadaAqui {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new NaoTemNadaAqui("Pilha [ VAZIA ]");
         }
         T valor = (T) this.pilhaComList.mostrarPrimeiro();
@@ -90,7 +100,7 @@ public class MinhaStackComLista<T> implements StackQueueInteface<T> {
      */
     @Override
     public void mostrar() throws NaoTemNadaAqui {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new NaoTemNadaAqui("Pilha [ Vazia ]");
         }
         this.pilhaComList.mostrar();
@@ -98,22 +108,30 @@ public class MinhaStackComLista<T> implements StackQueueInteface<T> {
 
     /**
      * Método que verifica se a pilha está cheia
-     * @return <strong>verdadeiro</strong> se cheio OU <strong>falso</strong> se não cheio
+     * 
+     * @return <strong>verdadeiro</strong> se cheio OU <strong>falso</strong> se não
+     *         cheio
      */
     @Override
     public boolean isFull() {
-        if(this.ultimo == this.tamanho) return true;
-        else return false;
+        if (this.ultimo == this.tamanho)
+            return true;
+        else
+            return false;
     }
 
     /**
      * Método que verifica se a pilha está vazia
-     * @return <strong>verdadeiro</strong> se vazio OU <strong>falso</strong> se não vazio
+     * 
+     * @return <strong>verdadeiro</strong> se vazio OU <strong>falso</strong> se não
+     *         vazio
      */
     @Override
     public boolean isEmpty() {
-        if(this.ultimo == -1) return true;
-        else return false;
+        if (this.ultimo == -1)
+            return true;
+        else
+            return false;
     }
-    
+
 }

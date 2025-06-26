@@ -1,4 +1,5 @@
 package view.VE;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -15,9 +16,13 @@ public class Demo extends Application {
 
     private static Stage stg;
 
-    public static Stage getStage(){ return stg; }
+    public static Stage getStage() {
+        return stg;
+    }
 
-    public static void setStg(Stage stg){ Demo.stg = stg; }
+    public static void setStg(Stage stg) {
+        Demo.stg = stg;
+    }
 
     @Override
     public void start(Stage arg0) throws Exception {
@@ -40,7 +45,7 @@ public class Demo extends Application {
         stg.setScene(cena);
     }
 
-    public static void fechar(){
+    public static void fechar() {
         stg.close();
     }
 }

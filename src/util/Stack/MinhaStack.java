@@ -5,18 +5,24 @@ import util.Log.ForaDosLimites;
 import util.Log.NaoTemNadaAqui;
 
 /**
- * <h1>MinhaStack</h1> é uma classe {@code MinhaStack} implementa estrutura de dados com comportamento de pilha.
- * <p>Esta pilha utiliza vetor.</p>
- * <p>Esta classe implementa as seguintes interfaces:</p>
+ * <h1>MinhaStack</h1> é uma classe {@code MinhaStack} implementa estrutura de
+ * dados com comportamento de pilha.
+ * <p>
+ * Esta pilha utiliza vetor.
+ * </p>
+ * <p>
+ * Esta classe implementa as seguintes interfaces:
+ * </p>
  * <ul>
  * <li>{@link StackQueueInteface}</li>
  * <li>{@link CollectionInteface}</li>
  * </ul>
+ * 
  * @author Ricardo Cezar Fernandes de Melo Junior
  */
 public class MinhaStack<T> implements StackQueueInteface<T> {
 
-    //#region Atributos
+    // #region Atributos
 
     public Object[] pilha;
 
@@ -24,32 +30,34 @@ public class MinhaStack<T> implements StackQueueInteface<T> {
 
     public int tamanho;
 
-    //#endregion
+    // #endregion
 
-    //#region Construtor
+    // #region Construtor
 
     /**
      * Método construtor da classe {@code MinhaStack}
+     * 
      * @param tamanho estabele o tamanho da pilha
      */
-    public MinhaStack(int tamanho){
+    public MinhaStack(int tamanho) {
         this.tamanho = tamanho;
         this.pilha = new Object[this.tamanho];
         this.ultimo = -1;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Métodos
+    // #region Métodos
 
     /**
      * Método que adiciona um elemento na pilha
+     * 
      * @param valor é o valor que será adicionado
      * @return void
      */
     @Override
     public void adicionar(T valor) {
-        if(isFull()){
+        if (isFull()) {
             throw new ForaDosLimites("Pilha tá [ CHEIA ]");
         }
         this.ultimo++;
@@ -58,32 +66,34 @@ public class MinhaStack<T> implements StackQueueInteface<T> {
 
     /**
      * Método que remove um elemento na pilha
+     * 
      * @return valor removido
      */
     @SuppressWarnings("unchecked")
     @Override
     public T removerElemento() {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new ForaDosLimites("Pilha tá [ VAZIA ]");
         }
-        T tmp = (T)this.pilha[this.ultimo];
+        T tmp = (T) this.pilha[this.ultimo];
         this.ultimo--;
-        
+
         return tmp;
     }
 
     /**
      * Método que mostra o primeiro elemento da pilha
+     * 
      * @return valor que está em primeiro.
      */
     @SuppressWarnings("unchecked")
     @Override
     public T mostrarPrimeiro() {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new NaoTemNadaAqui("A pilha está [ VAZIA ], você tá procurando [ NADA ]!!!");
         }
 
-        T tmp = (T)this.pilha[0];
+        T tmp = (T) this.pilha[0];
         return tmp;
     }
 
@@ -92,31 +102,39 @@ public class MinhaStack<T> implements StackQueueInteface<T> {
      */
     @Override
     public void mostrar() {
-        for(int i = 0; i <= this.ultimo; i++){
-            System.out.println((i+1) + "° = [ " + this.pilha[i] + " ]");
+        for (int i = 0; i <= this.ultimo; i++) {
+            System.out.println((i + 1) + "° = [ " + this.pilha[i] + " ]");
         }
         System.out.println();
     }
 
     /**
      * Método que verifica se a pilha está vazia
-     * @return <strong>verdadeiro</strong> se vazio OU <strong>falso</strong> se não vazio
+     * 
+     * @return <strong>verdadeiro</strong> se vazio OU <strong>falso</strong> se não
+     *         vazio
      */
     @Override
     public boolean isEmpty() {
-        if(this.ultimo == -1) return true;
-        else return false;
+        if (this.ultimo == -1)
+            return true;
+        else
+            return false;
     }
 
     /**
      * Método que verifica se a pilha está cheia
-     * @return <strong>verdadeiro</strong> se cheio OU <strong>falso</strong> se não cheio
+     * 
+     * @return <strong>verdadeiro</strong> se cheio OU <strong>falso</strong> se não
+     *         cheio
      */
     @Override
     public boolean isFull() {
-        if(this.ultimo == this.tamanho) return true;
-        else return false;
+        if (this.ultimo == this.tamanho)
+            return true;
+        else
+            return false;
     }
 
-    //#endregion
+    // #endregion
 }

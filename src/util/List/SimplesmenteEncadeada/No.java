@@ -1,28 +1,30 @@
 package util.List.SimplesmenteEncadeada;
 
 /**
- * <h1>No</h1> é uma classe {@code No} para armazenar os dados na lista encadeada.
+ * <h1>No</h1> é uma classe {@code No} para armazenar os dados na lista
+ * encadeada.
+ * 
  * @author Ricardo Cezar Fernandes de Melo Junior
  */
 public class No<T> {
-    
-    //#region Atributos
+
+    // #region Atributos
 
     private T valor;
 
     private No<T> proximo;
 
-    //#endregion
+    // #endregion
 
-    //#region Construtor
+    // #region Construtor
 
     public No(T valor) {
         this.valor = valor;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Métodos
+    // #region Métodos
 
     public T getValor() {
         return valor;
@@ -40,5 +42,5 @@ public class No<T> {
         this.proximo = proximo;
     }
 
-    //#endregion
+    // #endregion
 }

@@ -5,59 +5,67 @@ import util.Log.ForaDosLimites;
 import util.Log.NaoTemNadaAqui;
 
 /**
- * <h1>MinhaQueue</h1> é uma classe {@code MinhaQueue} implementa estrutura de dados com comportamento de fila.
- * <p>Esta fila utiliza vetor.</p>
- * <p>Esta classe implementa as seguintes interfaces:</p>
+ * <h1>MinhaQueue</h1> é uma classe {@code MinhaQueue} implementa estrutura de
+ * dados com comportamento de fila.
+ * <p>
+ * Esta fila utiliza vetor.
+ * </p>
+ * <p>
+ * Esta classe implementa as seguintes interfaces:
+ * </p>
  * <ul>
  * <li>{@link StackQueueInteface}</li>
  * <li>{@link CollectionInteface}</li>
  * </ul>
+ * 
  * @author Ricardo Cezar Fernandes de Melo Junior
  */
 public class MinhaQueue<T> implements StackQueueInteface<T> {
 
-    //#region Atributos
+    // #region Atributos
 
-    private Object[]fila;
+    private Object[] fila;
 
     private int primeiro;
-    
+
     private int ultimo;
-    
+
     private int size;
 
-    //#endregion
+    // #endregion
 
-    //#region Construtor
+    // #region Construtor
 
     /**
      * Método construtor da classe {@code MinhaQueue}
+     * 
      * @param tamanho estabele o tamanho da fila
      */
-    public MinhaQueue(int tamanho){
+    public MinhaQueue(int tamanho) {
         this.size = tamanho;
         this.fila = new Object[tamanho];
         this.primeiro = -1;
         this.ultimo = -1;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Métodos
+    // #region Métodos
 
     /**
      * Método que adiciona um elemento na fila
+     * 
      * @param valor é o valor que será adicionado
      * @return void
      */
     @Override
     public void adicionar(T valor) {
-        if(isFull()){
+        if (isFull()) {
             throw new ForaDosLimites("fila está [ CHEIA ]");
         } else {
-            if(isEmpty())
+            if (isEmpty())
                 this.primeiro = 0;
-            int lastTemp = (this.ultimo+1)%this.size;
+            int lastTemp = (this.ultimo + 1) % this.size;
             this.ultimo = lastTemp;
             this.fila[this.ultimo] = valor;
         }
@@ -65,20 +73,21 @@ public class MinhaQueue<T> implements StackQueueInteface<T> {
 
     /**
      * Método que remove um elemento na fila
+     * 
      * @return valor removido
      */
     @SuppressWarnings("unchecked")
     @Override
     public T removerElemento() {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new ForaDosLimites("fila está [ VAZIA ]");
         } else {
             T valor = (T) this.fila[this.primeiro];
-            if(this.primeiro == this.ultimo){
+            if (this.primeiro == this.ultimo) {
                 this.primeiro = -1;
                 this.ultimo = -1;
             } else {
-                this.primeiro = (this.primeiro+1)%this.size;
+                this.primeiro = (this.primeiro + 1) % this.size;
             }
             return valor;
         }
@@ -86,14 +95,15 @@ public class MinhaQueue<T> implements StackQueueInteface<T> {
 
     /**
      * Método que mostra o primeiro elemento da fila
+     * 
      * @return valor que está em primeiro.
      */
     @SuppressWarnings("unchecked")
     @Override
     public T mostrarPrimeiro() {
-        if(isEmpty())
+        if (isEmpty())
             throw new NaoTemNadaAqui("A fila está [ VAZIA ], você tá procurando [ NADA ]!!!");
-        T tmp =(T)this.fila[this.primeiro];
+        T tmp = (T) this.fila[this.primeiro];
         return tmp;
     }
 
@@ -102,31 +112,39 @@ public class MinhaQueue<T> implements StackQueueInteface<T> {
      */
     @Override
     public void mostrar() {
-        for(int i = this.primeiro; i <= this.ultimo; i++){
-            System.out.println((i+1) + "° = " +this.fila[i]);
+        for (int i = this.primeiro; i <= this.ultimo; i++) {
+            System.out.println((i + 1) + "° = " + this.fila[i]);
         }
     }
 
     /**
      * Método que verifica se a fila está cheia
-     * @return <strong>verdadeiro</strong> se cheia OU <strong>falso</strong> se não cheia
+     * 
+     * @return <strong>verdadeiro</strong> se cheia OU <strong>falso</strong> se não
+     *         cheia
      */
     @Override
     public boolean isFull() {
-        int lastTmp = (this.ultimo+1)%this.size;
-        if(this.ultimo == lastTmp) return true;
-        else return false;
+        int lastTmp = (this.ultimo + 1) % this.size;
+        if (this.ultimo == lastTmp)
+            return true;
+        else
+            return false;
     }
 
     /**
      * Método que verifica se a fila está cheia
-     * @return <strong>verdadeiro</strong> se cheio OU <strong>falso</strong> se não cheio
+     * 
+     * @return <strong>verdadeiro</strong> se cheio OU <strong>falso</strong> se não
+     *         cheio
      */
     @Override
     public boolean isEmpty() {
-        if(this.primeiro == -1) return true;
-        else return false;
+        if (this.primeiro == -1)
+            return true;
+        else
+            return false;
     }
 
-    //#endregion
+    // #endregion
 }

@@ -1,6 +1,5 @@
 package model;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -29,11 +28,11 @@ public class Tarefa {
 
     }
 
-    public Tarefa(){
+    public Tarefa() {
         this.id = UUID.randomUUID();
     }
 
-    public UUID getID(){
+    public UUID getID() {
         return id;
     }
 
@@ -41,7 +40,7 @@ public class Tarefa {
         this.id = id;
     }
 
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
 
