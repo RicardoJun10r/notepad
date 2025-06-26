@@ -16,9 +16,9 @@ public class Tarefa {
 
     private Prioridade prioridade;
 
-    private File notas;
+    private String notas;
 
-    public Tarefa(String nome, String descricao, LocalDate data, Prioridade prioridade, File notas) {
+    public Tarefa(String nome, String descricao, LocalDate data, Prioridade prioridade, String notas) {
 
         this.id = UUID.randomUUID();
         this.nome = nome;
@@ -73,11 +73,11 @@ public class Tarefa {
         this.prioridade = prioridade;
     }
 
-    public File getNotas() {
+    public String getNotas() {
         return notas;
     }
 
-    public void setNotas(File notas) {
+    public void setNotas(String notas) {
         this.notas = notas;
     }
 
@@ -86,7 +86,7 @@ public class Tarefa {
         System.out.println("Data de vencimento: " + data);
         System.out.println("Nome: " + nome);
         System.out.println("Prioridade: " + prioridade);
-        System.out.println("Notas: " + notas.getName());
+        System.out.println("Notas: " + notas);
         System.out.println("-----------");
     }
 }

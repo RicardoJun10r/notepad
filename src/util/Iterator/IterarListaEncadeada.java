@@ -23,8 +23,13 @@ public class IterarListaEncadeada<T> {
     }
 
     public NoDuplo<T> getProximoDuplo(){
-        this.noDuplo = this.noDuplo.getProximo();
-        return noDuplo;
+        if(this.noDuplo.getProximo() != null){
+            this.noDuplo = this.noDuplo.getProximo();
+            return noDuplo;
+        } else {
+            return this.noDuplo;
+        }
+        
     }
 
     public boolean hasNext(){

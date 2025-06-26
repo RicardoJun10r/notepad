@@ -6,9 +6,38 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Demo",
+            "request": "launch",
+            "mainClass": "view.VE.Demo",
+            "projectName": "notepad_a301f0cd",
+            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
+
+        },
+        {
+            "type": "java",
+            "name": "TelaNotas",
+            "request": "launch",
+            "mainClass": "VE.TelaNotas",
+            "projectName": "notepad_a301f0cd",
+            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
+
+        },
+        {
+            "type": "java",
+            "name": "Demo",
+            "request": "launch",
+            "mainClass": "VE.Demo",
+            "projectName": "notepad_a301f0cd",
+            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
+
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
+
         },
         {
             "type": "java",
