@@ -1,7 +1,4 @@
 {
-    // Use o IntelliSense para saber mais sobre os atributos possíveis.
-    // Focalizar para exibir as descrições dos atributos existentes.
-    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -12,44 +9,5 @@
             "projectName": "notepad_b2a0d9c2",
             "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
         },
-        {
-            "type": "java",
-            "name": "Demo",
-            "request": "launch",
-            "mainClass": "view.VE.Demo",
-            "projectName": "notepad_a301f0cd",
-            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "TelaNotas",
-            "request": "launch",
-            "mainClass": "VE.TelaNotas",
-            "projectName": "notepad_a301f0cd",
-            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "Demo",
-            "request": "launch",
-            "mainClass": "VE.Demo",
-            "projectName": "notepad_a301f0cd",
-            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}",
-            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "Demo",
-            "request": "launch",
-            "mainClass": "Demo",
-            "projectName": "notepad_a301f0cd",
-            "vmArgs": "--module-path openjfx-19_linux-x64_bin-sdk/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml"
-        }
     ]
 }
